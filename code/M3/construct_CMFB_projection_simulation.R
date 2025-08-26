@@ -1,4 +1,27 @@
-
+##############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan from 
+# 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 26 Aug 2025
+#
+# construct_CMFB_projection_simulation.R
+# 
+# This script simulate SRB inflation for each country to check model performance
+#
+# used for which run: main.run
+#
+# this script is called by any other scripts: main_output.R
+#
+# this script calls other scripts: null
+#
+# functions called: null
+# 
+# input data: null
+#
+# output data: null
+#
+###############################################################################
 
 ## simulate SRB inflation for each country to check model performance ##
 load(paste0(output.dir, "mcmc.array_", runname, ".rda")) #mcmc.array
@@ -82,14 +105,14 @@ for (c in c(1:C)[-which(is.element(name.c, c("Balochistan",
       }#end of l loop
       
       sim.adj.tl[t, ] <- sim.adj.tl[t, ] * delta.l
-    }#end of t loop
+    } # end of t loop
     
     R.lt <- R.noadj.lt + t(sim.adj.tl)
     
-    bhatF.lt <-  #estimated female birth - use R
-      bhatM.lt <-  #estimated male birth - use R
-      bexpF.lt  <- #expected female birth - use R.noadj
-      bmisF.lt <- #missing female birth: expected - estimated
+    bhatF.lt <-  # estimated female birth - use R
+      bhatM.lt <-  # estimated male birth - use R
+      bexpF.lt  <- # expected female birth - use R.noadj
+      bmisF.lt <- # missing female birth: expected - estimated
       matrix(NA, L, Tend+10)
     
     for (t in 1:(Tend+10)) {
@@ -101,7 +124,7 @@ for (c in c(1:C)[-which(is.element(name.c, c("Balochistan",
       
       ## expected female birth - use N.l ##
       bexpF.lt[, t] <- bexpF.l <- bhatM.l / N.l
-    }#end of t loop
+    } # end of t loop
     
     ## missing female birth: expected - estimated ##
     bmisF.lt <- bexpF.lt - bhatF.lt
@@ -113,13 +136,13 @@ for (c in c(1:C)[-which(is.element(name.c, c("Balochistan",
     for (l in 1:L) {
       sim.cmfb.cls[c, l, s] <- sum(bmisF.lt[l, t.start:Tend])
       sim.amfb.l[l] <- sum(bmisF.lt[l, t.start:(Tend+10)]) / (Tend+10 - t1 + 1)
-    }#end of l loop
+    } # end of l loop
     
     sim.cmfb.cqs[c, , s] <- SamplesToUI(sim.cmfb.cls[c, , s])
     sim.amfb.cqs[c, , s] <- SamplesToUI(sim.amfb.l)
     
-  }#end of s loop
-}#end of c loop
+  } # end of s loop
+} # end of c loop
 
 
 # for (c in 1:C) {
