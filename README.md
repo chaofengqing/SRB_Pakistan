@@ -1,7 +1,9 @@
-This repository presents the first subnational study of Sex Ratio at Birth (SRB) trends and projections in Nepal from 1980 to 2050. We adopt a **Bayesian hierarchical time-series mixture model** to estimate and forecast SRB across provinces in Pakistan. The model leverages an extensive database compiled from all available censuses and nationally representative surveys.
+This repository presents the first subnational study of Sex Ratio at Birth (SRB) tren ds and projections in Nepal from 1980 to 2050. We adopt a **Bayesian hierarchical time-series mixture model** to estimate and forecast SRB across seven provinces in Pakistan. The model leverages an extensive database compiled from all available censuses and nationally representative surveys.
 
-- Main paper: Chao, F., KC, S. & Ombao, H. Estimation and probabilistic projection of levels and trends in the sex ratio at birth in seven provinces of Nepal from 1980 to 2050: a Bayesian modeling approach. *BMC Public Health* **22**, 358 (2022). https://doi.org/10.1186/s12889-022-12693-0
-- Technical appendix of the main paper: Chao, Fengqing; K.C., Samir; Ombao, Hernando (2022). Technical Appendix for Estimation and probabilistic projection of levels and trends in the sex ratio at birth in seven provinces of Nepal from 1980 to 2050: a Bayesian modeling approach. figshare. Dataset. https://doi.org/10.6084/m9.figshare.19077155.v1
+- Main paper: Chao, Fengqing & Wazir, Muhammad & Ombao, Hernando. (2022). Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan from 1980 to 2020 with scenario-based probabilistic projections of missing female birth to 2050: A Bayesian modeling approach. International Journal of Population Studies. 8. 51-70. 10.36922/ijps.v8i2.332.
+
+- Technical appendix of the main paper: Chao, Fengqing; Wazir, Muhammad Asif; Ombao, Hernando (2021). Web appendix for levels and trends in sex ratio at birth in provinces of Pakistan from 1980 to 2020 with scenario-based missing female birth projections to 2050: a Bayesian modeling approach. figshare. Dataset.
+https://doi.org/10.6084/m9.figshare.16917622.v1
 
 ## Repository Structure
 
@@ -16,11 +18,11 @@ The repository contains two parts: **code** and **data**.
 
 ## Research Context
 
-This project presents a subnational estimation and projection of Nepal’s Sex Ratio at Birth (SRB) from 1980 to 2050, based on a Bayesian hierarchical time series mixture model. While previous studies have examined SRB at the national level, our approach addresses the geographic heterogeneity of sex imbalances in Nepal—a country where regional variation is both significant and policy-relevant.We aim to estimate and project SRB for the seven provinces of Nepal from 1980 to 2050 using a Bayesian modeling approach. We compiled an extensive database on provincial SRB of Nepal, consisting of the 2001, 2006, 2011, and 2016 Nepal Demographic and Health Surveys and the 2011 Census. We adopted a Bayesian hierarchical time series model to estimate and project the provincial SRB, with a focus on modeling the potential SRB imbalance.
+This project presents a subnational estimation and projection of Pakistan’s Sex Ratio at Birth (SRB) from 1980 to 2050, based on a Bayesian hierarchical time series mixture model. While previous studies have examined SRB at the national level, our approach addresses the geographic heterogeneity of sex imbalances in Pakistan — a country where regional variation is both significant and policy-relevant. We aim to estimate and project SRB for the seven provinces of Pakistan from 1980 to 2050 using a Bayesian modeling approach. We compiled an extensive database on provincial SRB of Pakistan, consisting of the Census, Demographic and Health Surveys (DHS), Multiple Indicator Cluster Surveys (MICS), and Pakistan Social and Living Standards Measurement Surveys (PSLM). We adopted a Bayesian hierarchical time series model to estimate and project the provincial SRB, with a focus on modeling the potential SRB imbalance.
 
 ## Methodology
 
-The study estimates Nepal's SRBs by seven provinces from 1980 to 2016 and projects them until 2050 using a Bayesian hierarchical time series mixture model. This model incorporates uncertainties from observations and natural year-by-year fluctuations. The full model write ups are in the [published paper](https://bmcpublichealth.biomedcentral.com/articles/10.1186/s12889-022-12693-0#citeas).
+The study estimates Nepal's SRBs by seven provinces from 1980 to 2016 and projects them until 2050 using a Bayesian hierarchical time series mixture model. This model incorporates uncertainties from observations and natural year-by-year fluctuations. The full model write ups are in the [published paper](https://www.researchgate.net/publication/366272892_Levels_and_trends_estimate_of_sex_ratio_at_birth_for_seven_provinces_of_Pakistan_from_1980_to_2020_with_scenario-based_probabilistic_projections_of_missing_female_birth_to_2050_A_Bayesian_modeling_app).
 
 We used the JAGS (Just Another Gibbs Sampler) to do Bayesian inference. The relevant R code to call JAGS and to get the MCMC samples are (they are called automatically in /code/main.R):
 
