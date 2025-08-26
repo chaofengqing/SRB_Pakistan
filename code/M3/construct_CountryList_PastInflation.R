@@ -1,4 +1,26 @@
-
+##############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan from 
+# 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 26 Aug 2025
+# construct_CountryList_PastInflation.R
+# 
+# This script identifies countries with past SRB inflation 
+#
+# used for which run: main.run
+#
+# this script is called by any other scripts: main_output.R
+#
+# this script calls other scripts: null
+#
+# functions called: null
+# 
+# input data: null
+#
+# output data: null
+#
+###############################################################################
 
 ## identify countries with past SRB inflation ##
 country.list.past.inflation <- NULL
@@ -10,31 +32,17 @@ cutoff <- 0.95
 count <- 0
 for (j in 1:C.adj) {
   c <- c.adj[j]
-  # t.datastart <- min(t.i[j.i == j]) #start of data period
-  # t.dataend <- max(t.i[j.i == j]) #end of data period
-  # 
-  # alpha.lt <- matrix(0, L, Tend)
-  # 
-  # for (t in which(years.t == adj.year):Tend) {
-  #   alpha.lt[, t] <- c(mcmc.array[, , paste0("alpha.jt[", j, ",", t, "]")])
-  # }# end of t loop
-
   delta.l <- c(mcmc.array[, , paste0("delta.j[", j, "]")])
-  
-  # zero.alpha.dataperiod <- apply(alpha.lt[, t.datastart:t.dataend] == 0, 1, prod) == 1
-
-  # inflation.prob.j[j] <- mean(delta.l == 1 & !zero.alpha.dataperiod)
   inflation.prob.j[j] <- mean(delta.l == 1)
   
   if (inflation.prob.j[j] >= cutoff) {
     count <- count + 1
     cat(count, name.c[c], inflation.prob.j[j], "\n")
     country.list.past.inflation <- c(country.list.past.inflation, name.c[c])
-  }#end of if(mean(delta.l == 1) == 1)
+  } # end of if(mean(delta.l == 1) == 1)
   
-}#end of j loop
+} # end of j loop
 
-# save(country.list.past.inflation, file = paste0(output.dir, "country.list.past.inflation.rda"))
 cat("Number of areas with past inflation:", length(country.list.past.inflation), "\n")
 print(sort(round(inflation.prob.j[!is.element(name.c[c.adj],
                                               country.list.past.inflation)]*100, 1), decreasing = TRUE))
