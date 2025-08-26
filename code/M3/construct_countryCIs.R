@@ -1,4 +1,35 @@
-
+###############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan from 
+# 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 26 Aug 2025
+# construct_countryCIs.R
+# 
+# This script saves country-specific results: sex ratio (estimated and expected),
+# and P multiplier.
+#
+# used for which run: main.run
+# note: For Main.run, this script is sourced after constructing adjustment factors 
+# and identifying countries with past/ongoing SRB inflation. 
+#
+#
+# this script is called by any other scripts: main_output.R
+#
+# this script calls other scripts: null
+#
+# functions called: function(2) means the function is called twice in this
+# script. Those functions called in the scripts listed above are not listed.
+# SamplesToUI(5)
+# 
+# input data: null
+#
+# output data: null
+#
+# note the indices in the output R object:
+# *.jqt - country related; 
+# 
+###############################################################################
 
 # This script saves country-specific results: sex ratio (estimated and expected),
 # and P multiplier.
@@ -36,7 +67,7 @@ for (j in 1:C.adj) {
     a.lt[, t] <- rep(exp(logNmu), L)
     ## adjustment factor ##
     alpha.lt[, t] <- selectADJ[["adj.nodelta.jtl"]][j, t, ]
-  }# end of t loop
+  } # end of t loop
   
   delta.l <- c(mcmc.array[, , paste0("delta.j[", j, "]")])
   
@@ -49,7 +80,7 @@ for (j in 1:C.adj) {
   if (mean(delta.l == 1) >= cutoff) {
     R1.lt <- R2.lt
     S1.l.select.prob.j[j] <- 0
-  }#end of if(mean(delta.l == 1) == 1)
+  } # end of if(mean(delta.l == 1) == 1)
   
   #S2: 2) countries with delta*alpha=1 and 0 in data period, only keep 0 traj
   t.datastart <- min(t.i[j.i == j]) #start of data period
@@ -68,13 +99,13 @@ for (j in 1:C.adj) {
       alpha.lt[l.zero.select, ] * delta.new.l[l.zero.select]
     S1.l.select.prob.j[j] <- length(l.zero.select)/L
     print(paste0(name.c[c], " S1: ", round(S1.l.select.prob.j[j]*100, 2), "%"))
-  }#end of if
+  } # end of if
   
   #S3: set delta=1 for all countries at risk of SRB inflation
   if (mean(delta.l == 1) >= cutoff) {
     R3.lt <- R.noadj.lt + alpha.lt
     S3.l.select.prob.j[j] <- 0
-  }#end of if(mean(delta.l == 1) == 1)
+  }  #end of if(mean(delta.l == 1) == 1)
   
   if (mean(delta.l == 1) < cutoff & mean(delta.l == 1) > 0 & alpha.check > 0) {
     l.one.select <- which(delta.l == 1)
@@ -83,7 +114,7 @@ for (j in 1:C.adj) {
     S3.l.select.prob.j[j] <- length(l.one.select)/L
     print(paste0(name.c[c], " S3: ", round(S3.l.select.prob.j[j]*100, 2), "%"))
     
-  }#end of if
+  } # end of if
   
   inflation.prob.j[j] <- mean(delta.l == 1 & !zero.alpha.dataperiod)
   print(paste0(name.c[c], " inflation prob: ", round(inflation.prob.j[j]*100, 2), "%"))
@@ -91,8 +122,8 @@ for (j in 1:C.adj) {
   R1.jqt[j, , ] <- SamplesToUI(R1.lt)
   R2.jqt[j, , ] <- SamplesToUI(R2.lt)
   R3.jqt[j, , ] <- SamplesToUI(R3.lt)
-  P.jqt[j, , ] <- SamplesToUI(P.lt)
-  a.jqt[j, , ] <- SamplesToUI(a.lt)
+  P.jqt[j, , ]  <- SamplesToUI(P.lt)
+  a.jqt[j, , ]  <- SamplesToUI(a.lt)
   
 }#end of j loop
 
