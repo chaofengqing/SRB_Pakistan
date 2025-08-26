@@ -1,4 +1,26 @@
-
+##############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan from 
+# 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 26 Aug 2025
+# construct_ErrorRelativeErrorCoverage_TestingSet.R
+#
+# This script print the simulation and validation results.
+#
+# used for which run: Main.run
+#
+# this script is called by any other scripts: main_output.R
+#
+# this script calls other scripts: null
+# functions called: null
+# input data: data/output/cis_M1_simulation.rda
+#              data/output/PredictCI_M1.rda
+#              data/output/Predict80CI_M1.rda
+# output data: data/output/
+#              Results_CoverageOneperCountrySummary_TestingSet_withError.csv
+#
+###############################################################################
 
 ## simulation/validation results ##
 
@@ -19,7 +41,7 @@ for (j in 1:C.adj) {
   c.e <- c(c.e, c.i[select.i])
   year.e <- c(year.e, year.i[select.i])
   name.e <- c(name.e, name.i[select.i])
-}#end of j loop
+} # end of j loop
 
 r.m <- Predict.qe[2, ] # median for predicted left-out data
 r.l <- Predict.qe[1, ] # lower bound for predicted left-out data
@@ -50,7 +72,7 @@ for (n in 1:Nsim) { #Nsim repeated draws
   
   for (j in 1:length(unique(name.e))) {
     pick[j] <- sample(which(name.e == unique(name.e)[j]), size = 1) #sample one per country
-  }#end of j loop
+  } # end of j loop
   pick.nc[n, ] <- pick
   
   ## all regions combined (all age groups) ##
@@ -63,7 +85,7 @@ for (n in 1:Nsim) { #Nsim repeated draws
   medianAbsError.n[n] <- median(abs(Error)[pick])                 #median.AbsError
   medianAbsRelativeError.n[n] <- median(abs(RelativeError)[pick]) #median.AbsRelativeError
   
-}#end of n loop
+} # end of n loop
 
 Coverage.OneperCountry.df <- list(
   Coverage.nq = Coverage.nq * 100,
@@ -84,8 +106,8 @@ result.all <- apply(cbind(Coverage.nq * 100, #3.83 4.77
                           meanError.n, #0.0045
                           medianError.n, #0.0045
                           medianAbsError.n,#0.12
-                          medianAbsRelativeError.n),#10.75
-                    2, mean, na.rm = TRUE)
+                          medianAbsRelativeError.n), # 10.75
+                          2, mean, na.rm = TRUE)
 
 n.result <- length(unique(name.e))
 N.result <- E
