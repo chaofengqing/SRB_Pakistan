@@ -1,7 +1,29 @@
+##############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 27 Aug 2025
+# construct_countryCIs_CountryTrajectories.R
+# 
+# This script extracts posterior samples of the adjustment parameters.
+#
+# used for which run: main.run
+#
+# this script is called by any other scripts: main_output.R
+#
+# this script calls other scripts: null
+#
+# functions called: null
+# 
+# input data: data/interim/birth.ct.rda
+#
+# output data: null
+#
+###############################################################################
 
-
-
-load(file = paste0(interim.dir, "birth.ct.rda")) #birth.ct
+load(file = paste0(interim.dir, "birth.ct.rda")) # birth.ct
 
 dim(birth.ct) # 29 93
 summary(c(birth.ct))
@@ -16,7 +38,7 @@ for (node in NODES) {
   countries <- seq((node - 1) * floor(C / max(NODES)) + 1,
                    ifelse(node < max(NODES), node * floor(C / max(NODES)), C))
   print(countries)
-}#end of node loop
+} # end of node loop
 
 
 library(doParallel)
@@ -41,7 +63,7 @@ foreach (node = NODES) %dopar% {
       a.lt[, t] <- rep(exp(logNmu), L)
       ## adjustment factor ##
       alpha.lt[, t] <- selectADJ[["adj.nodelta.jtl"]][j, t, ]
-    }# end of t loop
+    } # end of t loop
     
     delta.l <- c(mcmc.array[, , paste0("delta.j[", j, "]")])
     
@@ -69,7 +91,7 @@ foreach (node = NODES) %dopar% {
       
       ## expected female birth - use N.l ##
       bexpF.lt[, t] <- bexpF.l <- bhatM.l / N.l
-    }#end of t loop
+    } # end of t loop
     
     ## missing female birth: expected - estimated ##
     bmisF.lt <- bexpF.lt - bhatF.lt
@@ -88,8 +110,8 @@ foreach (node = NODES) %dopar% {
     save(res.c.full,
          file = paste0(countryTraj.dir, "trajectory_", runname, "_", name.c[c], "_full.rda"))
     
-  }#end of c loop
-}#end of node loop  
+  } # end of c loop
+} # end of node loop  
 
 stopImplicitCluster()
 
