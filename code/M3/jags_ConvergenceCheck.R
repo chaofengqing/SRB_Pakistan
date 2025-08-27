@@ -6,7 +6,7 @@
 # outlying levels
 #
 # Code constructed by: Leontine ALKEMA and Fengqing CHAO
-# Code last revised by: Fengqing CHAO on 25 Feb 2014
+# Code last revised by: Qiqi Qiang on 26 Aug 2025
 # 
 # jags_ConvergenceCheck.R
 # 
@@ -15,7 +15,7 @@
 #
 # used for which run: Main.run; Validation.run; Excl.run
 #
-# this script is called by any other scripts: main*_output.R
+# this script is called by any other scripts: main_output.R
 #
 # this script calls other scripts: null
 # functions called:                null
@@ -35,7 +35,7 @@
 pdf(paste0(convergeplot.dir, "trace_", runname, ".pdf"))
 for (par in hyper.para) {
   PlotTrace(parname = par, mcmc.array = mcmc.array)
-}#end of par loop
+} # end of par loop
 dev.off()
 
 ## starting year of adjustment period ##
@@ -53,7 +53,7 @@ for (j in 1:C.adj) {
   par <- paste0("T3.j[", j, "]")
   PlotTrace(parname = par, mcmc.array = mcmc.array,
             main = paste(par, name.c[c.adj[j]]))
-}#end of par loop
+} # end of par loop
 dev.off()
 
 ## inflation probability ##
@@ -62,7 +62,7 @@ for (j in 1:C.adj) {
   par <- paste0("p.delta.j[", j, "]")
   PlotTrace(parname = par, mcmc.array = mcmc.array,
             main = paste(par, name.c[c.adj[j]]))
-}#end of par loop
+} # end of par loop
 dev.off()
 
 ## inflation probability ##
@@ -71,7 +71,7 @@ for (j in 1:C.adj) {
   par <- paste0("delta.j[", j, "]")
   PlotTrace(parname = par, mcmc.array = mcmc.array,
             main = paste(par, name.c[c.adj[j]]))
-}#end of par loop
+} # end of par loop
 dev.off()
 
 
@@ -98,7 +98,7 @@ pdf(paste0(convergeplot.dir, "trace_problematic_", runname, ".pdf"))
 for (par in par.select) {
   PlotTrace(parname = par, mcmc.array = mcmc.array,
             main = paste0(par, " Rhat=", round(post.full[par, "Rhat (descending)"], 2)))
-}#end of par loop
+} # end of par loop
 dev.off()
 
 par.select <- rownames(post.alpha)[1:25]#[post.alpha[, "Rhat (descending)"] > 1.1]
@@ -106,7 +106,7 @@ pdf(paste0(convergeplot.dir, "trace_problematic_alpha_", runname, ".pdf"))
 for (par in par.select) {
   PlotTrace(parname = par, mcmc.array = mcmc.array,
             main = paste0(par, " Rhat=", round(post.alpha[par, "Rhat (descending)"], 2)))
-}#end of par loop
+} # end of par loop
 dev.off()
 
 
@@ -139,9 +139,9 @@ for (j in 1:C.adj) {
              c("all (100%)",
                paste0("delta=0 (", round(mean(delta.l == 0)*100), "%)"),
                paste0("delta=1 (", round(mean(delta.l == 1)*100), "%)")))
-    }#end of t loop
-  }#end of if(l.one.select < L)
-}#end of j loop
+    } # end of t loop
+  } # end of if(l.one.select < L)
+} # end of j loop
 dev.off()
 
 ## The End! ##
