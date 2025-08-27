@@ -17,11 +17,9 @@
 #
 # functions called: function(2) means the function is called twice in this
 # script. Those functions called in the scripts listed above are not listed.
-# GetSexSpecificBirthfromAllandSRB(1)
-# 
-# input data: data/interim/birth.ct.rda
+# SamplesToUI(11)
 #
-# output data: 
+# input data: 
 # 1. data/output/countryTrajectory/trajectory_M3_Balochistan_full.rda
 # 2. data/output/countryTrajectory/trajectory_M3_Khyber Pakhtunkhwa_full.rda
 # 3. data/output/countryTrajectory/trajectory_M3_Punjab_full.rda
@@ -30,10 +28,15 @@
 # 6. data/output/countryTrajectory/trajectory_M3_Islamabad (ICT)_full.rda
 # 7. data/output/countryTrajectory/trajectory_M3_Azad Jammu and Kashmir_full.rda
 # 8. data/output/countryTrajectory/trajectory_M3_Federally Administered Tribal Areas_full.rda
-###############################################################################
-# SRB project
 #
+# output data:
+# 1. data/output/cis_full_M3.rda
+# 2. data/output/cis_PAK_M3.rda
+# 3. data/output/trajectory_M3_R.rda
+# 4. data/output/trajectory_M3 _PAK_R.rda
+
 ###############################################################################
+
 
 ## construct empty arrays and metrics and assign dimention names ##
 array.cqt <- array(0, c(C, Per, Tend))
@@ -81,7 +84,7 @@ for (c in 1:C) {
   expBf.cqt[c, , ] <- SamplesToUI(res.c.full[["Bexpf.lt"]])
   misBf.cqt[c, , ] <- SamplesToUI(res.c.full[["Bmisf.lt"]])
   
-  ## whole India results ##
+  ## whole Pakistan results ##
   Bf.lt.c <- res.c.full[["Bf.lt"]]
   Bm.lt.c <- res.c.full[["Bm.lt"]]
   Bexpf.lt.c <- res.c.full[["Bexpf.lt"]]
@@ -96,7 +99,7 @@ for (c in 1:C) {
   Bm.lt <- Bm.lt + Bm.lt.c
   expBf.lt <- expBf.lt + Bexpf.lt.c
   misBf.lt <- misBf.lt + Bmisf.lt.c
-}#end of c loop
+} # end of c loop
 
 R.lt <- Bm.lt / Bf.lt
 
@@ -128,7 +131,7 @@ for (c in 1:C) {
                      "_", name.c[c], "_full.rda")) #res.c.full
   
   R.clt[c, , ] <- res.c.full[["R.lt"]]
-}#end of c loop
+}  # end of c loop
 
 res.Rtrajectory <- list(R.clt = R.clt)
 
