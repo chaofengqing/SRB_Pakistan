@@ -1,6 +1,35 @@
+###############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 27 Aug 2025
+#
+# construct_onecountry_ADJ_simulation.R
+# 
+# This script is to simulate SRB inflation for each country to check model performance.
+#
+# used for which run: main.run
+#
+# this script is called by any other scripts: main_output.R
+#
+# this script calls other scripts: null
+#
+# functions called: function(2) means the function is called twice in this
+# script. Those functions called in the scripts listed above are not listed.
+# SamplesToUI(6)
+# 
+# 
+# input data: mcmc.array_M3.rda
+#             selectP_M3.rda
+#
+# output data: data/output/cis_M1_simulation.rda
+#               data/output/PredictCI_M1.rda
+#               data/output/Predict80CI_M1.rda
+###############################################################################
 
-
-## simulate SRB inflation for each country to check model performance ##
+## w ##
 load(paste0(output.dir, "mcmc.array_", runname, ".rda")) #mcmc.array
 L <- dim(mcmc.array)[1] * dim(mcmc.array)[2]; L
 load(file = paste0(output.dir, "selectP_", runname, ".rda")) #selectP
@@ -11,7 +40,7 @@ for (par in hyper.para) {
   par.name <- paste0(par, ".l")
   print(par.name)
   eval(parse(text = paste0(par.name, " <- c(mcmc.array[, , '", par, "'])")))
-}#end of par loop
+} # end of par loop
 
 ######################################
 ## simulate adjustment factor first...
@@ -34,7 +63,7 @@ for (j in 1:C.adj) {
   ## shape parameters...
   for (l in 1:L) {
     set.seed(l*19)
-    a.l[l] <- rtrunc(n = 1, spec = "norm", a = 0, mean = pri.a.c.mu, sd = pri.sigma.a.c)
+    a.l[l]  <- rtrunc(n = 1, spec = "norm", a = 0, mean = pri.a.c.mu, sd = pri.sigma.a.c)
     D1.l[l] <- rtrunc(n = 1, spec = "norm", a = 0, mean = pri.D1.c.mu, sd = pri.sigma.D1)
     D2.l[l] <- rtrunc(n = 1, spec = "norm", a = 0, mean = pri.D2.c.mu, sd = pri.sigma.D2)
     D3.l[l] <- rtrunc(n = 1, spec = "norm", a = 0, mean = pri.D3.c.mu, sd = pri.sigma.D3)
@@ -48,7 +77,7 @@ for (j in 1:C.adj) {
   set.seed(j*123)
   q.delta.l <- rnorm(L, delta.mu.l, sigma.delta.l)
   p.delta.l <- exp(q.delta.l) / (exp(q.delta.l) + 1)
-  delta.l <- rbinom(n = L, size = 1, prob = p.delta.l)
+  delta.l   <- rbinom(n = L, size = 1, prob = p.delta.l)
   
   sim.T0.j[j] <- median(T0.l, na.rm = TRUE)
   sim.T3.j[j] <- median(T3.l, na.rm = TRUE)
@@ -67,8 +96,8 @@ for (j in 1:C.adj) {
     }#end of l loop
     
     sim.adj.jtl[j, t, ] <- sim.adj.jtl[j, t, ] * delta.l
-  }#end of t loop
-}#end of j loop
+  } # end of t loop
+} # end of j loop
 
 #################################
 ## simulate logP.ct after 1970...
@@ -86,8 +115,8 @@ for (j in 1:C.adj) {
   for (t in 2:Tend) {
     mean.l <- rho.l * sim.logP.jtl[j, t-1, ]
     sim.logP.jtl[j, t, ] <- rnorm(n = L, mean = mean.l, sd = sigma.l)
-  }#end of t loop
-}#end of c loop
+  } # end of t loop
+} # end of c loop
 
 ###############################################
 ## get the simulated SRB for these countries...
@@ -126,7 +155,7 @@ for (j in 1:C.adj) {
   
   
   ## add in sampling and non-sampling error ##
-  country <- name.c[c]
+  country  <- name.c[c]
   select.i <- which(name.i == country)
   
   r.e <- c(r.e, r.i[select.i])
@@ -142,10 +171,10 @@ for (j in 1:C.adj) {
     rPredict.ld[, d] <- exp(rnorm(n = L,
                                   mean = log(sim.R.lt[, t.i[select.i[d]]]),
                                   sd = sigma.d[d] + sigma.s.l))
-  }#end of d loop
+  } # end of d loop
   
   rPredict.le <- cbind(rPredict.le, rPredict.ld)
-}#end of j loop
+} # end of j loop
 
 ## 95% PI ##
 Predict.qe <- SamplesToUI(rPredict.le)
