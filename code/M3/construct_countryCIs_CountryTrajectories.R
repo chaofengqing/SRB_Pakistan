@@ -15,7 +15,9 @@
 #
 # this script calls other scripts: null
 #
-# functions called: null
+# functions called: function(2) means the function is called twice in this
+# script. Those functions called in the scripts listed above are not listed.
+# GetSexSpecificBirthfromAllandSRB(1)
 # 
 # input data: data/interim/birth.ct.rda
 #
