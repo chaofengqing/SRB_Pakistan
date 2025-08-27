@@ -7,7 +7,9 @@
 # Code last revised by: Qiqi Qiang on 27 Aug 2025
 # construct_countryCIs_CountryTrajectories.R
 # 
-# This script extracts posterior samples of the adjustment parameters.
+# This script uses Bayesian posterior samples to estimate province-level sex ratios at 
+# birth and missing female births (1980–2020), then saves the full trajectories 
+# for each province.
 #
 # used for which run: main.run
 #
@@ -21,7 +23,15 @@
 # 
 # input data: data/interim/birth.ct.rda
 #
-# output data: null
+# output data: 
+# 1. data/output/countryTrajectory/trajectory_M3_Balochistan_full.rda
+# 2. data/output/countryTrajectory/trajectory_M3_Khyber Pakhtunkhwa_full.rda
+# 3. data/output/countryTrajectory/trajectory_M3_Punjab_full.rda
+# 4. data/output/countryTrajectory/trajectory_M3_Sindh_full.rda
+# 5. data/output/countryTrajectory/trajectory_M3_Gilgit Baltista_full.rda
+# 6. data/output/countryTrajectory/trajectory_M3_Islamabad (ICT)_full.rda
+# 7. data/output/countryTrajectory/trajectory_M3_Azad Jammu and Kashmir_full.rda
+# 8. data/output/countryTrajectory/trajectory_M3_Federally Administered Tribal Areas_full.rda
 #
 ###############################################################################
 
