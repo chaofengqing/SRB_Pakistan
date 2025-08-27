@@ -1,4 +1,30 @@
-
+###############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 28 Aug 2025
+#
+# explore_newcountry_ADJ_simulation.R
+# 
+# This script is to simulate SRB inflation for new country to check model performance.
+#
+# used for which run: main.run
+#
+# this script is called by any other scripts: main_output.R
+#
+# this script calls other scripts: null
+#
+# functions called: function(2) means the function is called twice in this
+# script. Those functions called in the scripts listed above are not listed.
+# SamplesToUI(6)
+# 
+# 
+# input data: null
+#
+# output data: fig/explore_newcountry_ADJ_simulation.pdf
+###############################################################################
 
 ######################################
 ## simulate adjustment factor first...
@@ -40,11 +66,11 @@ for (t in 1:Tend) {
       sim.adj.tl[t, l] <- a.l[l]
     } else {
       sim.adj.tl[t, l] <- a.l[l] - (a.l[l] / D3.l[l]) * (t - T2.l[l])
-    }#end of ifelse
-  }#end of l loop
+    } # end of ifelse
+  } # end of l loop
   
   sim.adj.tl[t, ] <- sim.adj.tl[t, ] * delta.l
-}#end of t loop
+} # end of t loop
 
 sim.adj.qt <- SamplesToUI(t(sim.adj.tl))
 
