@@ -1,6 +1,29 @@
 
-
-
+#################################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 28 Aug 2025
+# 
+# jags_getMCMC.R
+# 
+# This script calls JAGS and run the JAGS model on several serves parallely.
+#
+# used for which run: main.run
+#
+# this script is called by any other scripts: main.R
+#
+# this script calls other scripts: null
+# functions called:                null
+# 
+# input data: most information are from jags_setupMCMC.R.
+#
+# output data: data/output/runname/temp.JAGSobjects/* - stepwise JAGS output
+# note: these output files will be combined in main_output.R to get mcmc.array
+#
+###############################################################################
 ## RUN FOR JAGS ##
 
 ## for linux server only:
@@ -44,9 +67,9 @@ foreach(chain = ChainIDs) %dopar% {
       cat(paste("MCMC results step", i, "for chain", chain, 
                 "written to folder", jagsStep.dir, "at", date(), "\n"))
       
-    }#end of i loop (steps)
-  }#end of if(step > 1) 
-}#end of chain loop
+    } # end of i loop (steps)
+  } # end of if(step > 1) 
+} # end of chain loop
 
 stopImplicitCluster()
 ## the end ##
