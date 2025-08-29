@@ -1,4 +1,36 @@
-
+###############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 29 Aug 2025
+#
+# main.R
+# 
+# This script is the master file to get MCMC array for Main.run. Run this
+# script to get reulsts.
+#
+# used for which run: main.run
+#
+# this script is called by any other scripts: null
+#
+# this script calls other scripts:
+# 1. source_BasicSetup.R
+# 2. source_DirectorySetup.R
+# 3. source_DataSetup.R - is only called once and is in this script.
+# 4. source_adj_DataSetup.R
+# 5. source_ADJ&TFR_relation.R
+# 6. jags_setupMCMC.R
+# 7. jags_getMCMC.R
+#
+# functions called: Null
+# 
+# input data: 
+#
+# output data: null
+#
+###############################################################################
 
 ## Master code file ##
 ## This run is to get normal level of SRB only!!!
@@ -16,7 +48,7 @@ DoMCMC    <- TRUE  # get step-wise JAGS output?
 
 OneCountry.run <- grepl("_one", runname) # whether this is a one-country run
 
-workdir <- "/Users/chaof/work/"
+workdir <- "Your own work dictionary"
 setwd(file.path(workdir, projname))
 
 # setup directories
@@ -42,7 +74,7 @@ source(paste0("code/", runname, "/source_DataSetup.R"))
 ## data for adjustment factor ##
 source(paste0("code/", runname, "/source_adj_DataSetup.R"))
 ## data related to TFR ##
-source(paste0("code/", runname, "/source_ADJ&TFR-relation.R"))
+source(paste0("code/", runname, "/source_ADJ&TFR_relation.R"))
 # setup MCMC settings
 source(paste0("code/", runname, "/jags_setupMCMC.R"))
 
