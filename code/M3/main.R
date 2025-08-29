@@ -26,7 +26,7 @@
 #
 # functions called: Null
 # 
-# input data: 
+# input data: data/interim/database_for_modeling_2021-06-01.csv
 #
 # output data: null
 #
