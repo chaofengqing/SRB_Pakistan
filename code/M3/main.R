@@ -28,7 +28,9 @@
 # 
 # input data: data/interim/database_for_modeling_2021-06-01.csv
 #
-# output data: null
+# output data:
+# data/output/M1/temp.JAGSobjects/  - stepwise JAGS trajectory output
+# Note: only the main output data are listed here since it is a master script.
 #
 ###############################################################################
 
