@@ -1,12 +1,33 @@
 
+##############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 30 Aug 2025
+#
+# plot_AdjModelSetting.R
+# 
+# This script illustrates plot for adjustment model setting
+#
+# used for which run: Main.run
+#
+# this script is called by any other scripts: main_output.R
+#
+# this script calls other scripts: null
+#
+# functions called: null
+# 
+# input data: null
+#
+# output data: output/fig/AdjModelSetting_tech_PAK.pdf
+#
+###############################################################################
 
 ## illustration plot for adjustment model setting ##
 
-
-# workdir <- "D:/Dropbox/SRB/fig/" #laptop
-# workdir <- "/Users/FQ/Dropbox/SRB/fig/" #iMac
-
-plot.dir <- "/Users/chaof/work/SRB_Pakistan/fig/M3/"
+plot.dir <- "Your own work dictionary"
 # install.packages("shape", dependencies = TRUE)
 library(shape)
 
