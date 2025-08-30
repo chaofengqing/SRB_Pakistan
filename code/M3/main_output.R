@@ -45,7 +45,7 @@
 # ReadJagsOutput(1)
 #
 # input data in folder data/:
-# 1. interim/database_for_modeling_2020-05-11.csv - SR data base;
+# 1. interim/database_for_modeling_2021-06-01.csv - SR data base;
 #                                      created by source_dataCleaning (main.R)
 #
 # 2. output/M1/temp.JAGSobjects/* - read in stepwise JAGS output
