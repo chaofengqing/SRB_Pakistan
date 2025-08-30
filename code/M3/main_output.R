@@ -1,4 +1,68 @@
-
+###############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 30 Aug 2025
+# 
+# main_output.R
+# 
+# This script is the master file to get all results for Main.run. Run this
+# script ONLY AFTER main.R have all been run through.
+#
+# used for which run: Main.run
+#
+# this script is called by any other scripts: null
+#
+# this script calls other scripts:
+# 01. source_BasicSetup.R
+# 02. source_DirectorySetup.R
+# 03. source_adj_DataSetup.R
+# 04. source_DataSetup.R
+# 05. source_ADJ&TFR_relation.R
+# 06. jags_setupMCMC.R
+# 07. jags_ConvergenceCheck.R
+# 08. construct_logPselect.R
+# 09. construct_ADJselect.R
+# 10. construct_CountryList_PastInflation.R
+# 11. construct_countryCIs.R
+# 12. plot_countryCIandData(NOimpute).R
+# 13. plot_lineseg_SRB_allstates.R
+# 14. plot_countrySRB&TFR.R
+# 15. plot_SRB_map_province.R"
+# 16. construct_onecountry_ADJ_simulation.R
+# 17. construct_cumsumMissingFemaleBirth.R
+# 18. construct_ErrorRelativeErrorCoverage_TestingSet.R"
+# 19. construct_countryCIs_SaveResults(cqt).R
+# 20. construct_CMFB_projection_simulation.R
+# 21. table_appendix_supplementary_estimates.R
+# 22. plot_newcountry_ADJ_simulation.R
+# 23. construct_countryCIs_CountryTrajectories.R
+#
+# functions called: function(2) means the function is called twice in this
+# script. Those functions called in the scripts listed above are not listed.
+# ReadJagsOutput(1)
+#
+# input data in folder data/:
+# 1. interim/database_for_modeling_2020-05-11.csv - SR data base;
+#                                      created by source_dataCleaning (main.R)
+#
+# 2. output/M1/temp.JAGSobjects/* - read in stepwise JAGS output
+#
+# output data in folder data/output/M1/
+# 1. selectP_M1.rda  - the estimated probabilities of SRB inflation 
+#                      for each country or region based on the Bayesian model outputs.
+# 2. cis_M1__senario_proj.rda   - the world/region/country median with 90% CI in order
+#                                  to get other tables and plots.
+# 3. selectADJ_M1.rda  - country-specific SRB adjustment factors used to 
+#                        account for potential data biases.
+# 4. mcmc.array_M1.rda  - MCMC array
+# 5. traj_M1_R2.jtl.rda  -
+# Note: only the main output data are listed here since it is a master script.
+# The above output data may be created in other scripts which are called in
+# this script.
+#################################################################################
 
 ## Master code file ##
 ## This run is to get normal level of SRB only!!!
@@ -16,8 +80,7 @@ DoMCMC    <- FALSE  # get step-wise JAGS output?
 
 OneCountry.run <- grepl("_one", runname) # whether this is a one-country run
 
-workdir <- "/Users/chaof/Dropbox/work/"
-# workdir <- "/Volumes/ExtremeSSD/"
+workdir <- "Your own work dictionary"
 setwd(file.path(workdir, projname))
 
 # country name
@@ -44,7 +107,7 @@ source(paste0("code/", runname, "/source_DataSetup.R"))
 ## data for adjustment factor ##
 source(paste0("code/", runname, "/source_adj_DataSetup.R"))
 ## data related to TFR ##
-source(paste0("code/", runname, "/source_ADJ&TFR-relation.R"))
+source(paste0("code/", runname, "/source_ADJ&TFR_relation.R"))
 # setup MCMC settings
 source(paste0("code/", runname, "/jags_setupMCMC.R"))
 
