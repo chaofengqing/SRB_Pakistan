@@ -1,3 +1,24 @@
+##############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 29 Aug 2025
+#
+# PlotCIbandwithDataseries.R
+# 
+# This script contains function which plots confidence interval bands 
+# and median estimate lines over time from posterior summaries for data series.
+#
+# Functions are: function1(.., function2(3), ..); means function2 is called
+# three times inside function1.
+#
+# PlotCIbandwithDataseries(..)
+#
+#
+###############################################################################
+#------------------------------------------------------------------------------
 
 
 PlotCIbandwithDataseries <- function(
@@ -289,4 +310,5 @@ PlotCIbandwithDataseries <- function(
   }#end of if.SurveyLegend  
   
 }#end of PlotCIbandwithDataseries() function
+
 
