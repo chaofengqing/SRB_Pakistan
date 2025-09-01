@@ -21,7 +21,7 @@
 # 
 # input data: null
 #
-# output data: output/fig/AdjModelSetting_tech_PAK.pdf
+# output data: fig/AdjModelSetting_tech_PAK.pdf
 #
 ###############################################################################
 
