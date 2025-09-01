@@ -9,7 +9,7 @@
 # 
 # This script simulate SRB inflation for each country to check model performance
 #
-# used for which run: main.run
+# used for which run: Main.run
 #
 # this script is called by any other scripts: main_output.R
 #
@@ -17,14 +17,19 @@
 #
 # functions called: null
 # 
-# input data: null
+# input data: 
+# 1. data/output/trajectory_M3_R.rda
+# 2. data/interim/birth.full.ct.rda
 #
-# output data: null
-#
+# output data:
+# 1. fig/simulatedMISFB_bystartyear_M3.rda
+# 2. fig/simulatedAMFB_bystartyear_M3.rda
+# 3. fig/simulatedCMFB_bystartyear_M3.rda
+# 4. fig/simulatedCMFB_bystartyear_cls_M3.rda
 ###############################################################################
 
 ## simulate SRB inflation for each country to check model performance ##
-load(paste0(output.dir, "mcmc.array_", runname, ".rda")) #mcmc.array
+load(paste0(output.dir, "mcmc.array_", runname, ".rda")) # mcmc.array
 L <- dim(mcmc.array)[1] * dim(mcmc.array)[2]; L
 load(file = paste0(output.dir, "trajectory_", runname, "_R.rda")) #res.Rtrajectory
 load(file = paste0(interim.dir, "birth.full.ct.rda")) #birth.full.ct
@@ -35,7 +40,7 @@ for (par in hyper.para) {
   par.name <- paste0(par, ".l")
   print(par.name)
   eval(parse(text = paste0(par.name, " <- c(mcmc.array[, , '", par, "'])")))
-}#end of par loop
+} # end of par loop
 
 ##########################################################################
 ## add the simulated SRB imbalance to each province by each starting year
@@ -75,11 +80,11 @@ for (c in c(1:C)[-which(is.element(name.c, c("Balochistan",
     ## shape parameters...
     for (l in 1:L) {
       set.seed(l*19 + s*11)
-      a.l[l] <- rtrunc(n = 1, spec = "norm", a = 0, mean = pri.a.c.mu, sd = pri.sigma.a.c)
+      a.l[l]  <- rtrunc(n = 1, spec = "norm", a = 0, mean = pri.a.c.mu, sd = pri.sigma.a.c)
       D1.l[l] <- rtrunc(n = 1, spec = "norm", a = 0, mean = pri.D1.c.mu, sd = pri.sigma.D1)
       D2.l[l] <- rtrunc(n = 1, spec = "norm", a = 0, mean = pri.D2.c.mu, sd = pri.sigma.D2)
       D3.l[l] <- rtrunc(n = 1, spec = "norm", a = 0, mean = pri.D3.c.mu, sd = pri.sigma.D3)
-    }#end of l loop
+    } # end of l loop
     
     T1.l <- T0.l + D1.l
     T2.l <- T1.l + D2.l
@@ -101,18 +106,18 @@ for (c in c(1:C)[-which(is.element(name.c, c("Balochistan",
           sim.adj.tl[t, l] <- a.l[l]
         } else {
           sim.adj.tl[t, l] <- a.l[l] - (a.l[l] / D3.l[l]) * (t - T2.l[l])
-        }#end of ifelse
-      }#end of l loop
+        } # end of ifelse
+      } # end of l loop
       
       sim.adj.tl[t, ] <- sim.adj.tl[t, ] * delta.l
     } # end of t loop
     
     R.lt <- R.noadj.lt + t(sim.adj.tl)
     
-    bhatF.lt <-  # estimated female birth - use R
+    bhatF.lt   <-  # estimated female birth - use R
       bhatM.lt <-  # estimated male birth - use R
       bexpF.lt  <- # expected female birth - use R.noadj
-      bmisF.lt <- # missing female birth: expected - estimated
+      bmisF.lt  <- # missing female birth: expected - estimated
       matrix(NA, L, Tend+10)
     
     for (t in 1:(Tend+10)) {
@@ -144,13 +149,6 @@ for (c in c(1:C)[-which(is.element(name.c, c("Balochistan",
   } # end of s loop
 } # end of c loop
 
-
-# for (c in 1:C) {
-#   for (t in t.start:Tend) {
-#     s <- which(c(t.start:Tend) == t)
-#     sim.amfb.cqs[c, , s] <- SamplesToUI(sim.cmfb.cls[c, , s] / (Tend - t + 1))
-#   }#end of t loop  
-# }#end of c loop
 
 save(sim.misfb.cts, file = paste0(output.dir,"simulatedMISFB_bystartyear_",runname,".rda"))
 save(sim.amfb.cqs, file = paste0(output.dir,"simulatedAMFB_bystartyear_",runname,".rda"))
