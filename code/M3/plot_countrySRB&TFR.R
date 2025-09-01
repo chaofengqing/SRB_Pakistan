@@ -1,4 +1,34 @@
-
+###############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 29 Aug 2025
+#
+# plot_countrySRB&TFR.R
+#
+# This script plot the results containing SRB and TFR for all the countries
+#
+# used for which run: Main.run
+#
+# this script is called by any other scripts: main_output.R;
+#
+# this script calls other scripts: null
+#
+# functions called: function(2) means the function is called twice in this
+# script. Those functions called in the scripts listed above are not listed.
+# PlotCIbandwithDataseries(4)
+#
+# input data: data/output/M3_postinfo_exclude-alpha_jt.csv
+# 
+# output plots in folder fig/ :
+# 1.CIs_adj-Country_senario_proj_M1.pdf - One plot per country comparing SRB 
+#                                         from 3 scenarios (S1, S2, S3)
+# 2. "CIs_adj-Country_senario_proj_M3.pdf"
+# 3. "CIs_adj-Country_S1_M3.pdf"
+# 4. "CIs_adj-Country_S2_M3.pdf"
+# 5. "CIs_adj-Country_S3_M3.pdf"
 
 ############################################
 ## plot the results for all the countries ##
@@ -29,7 +59,6 @@ for (country in plot.country) { #c in c.asia: now plot a subset of Asian countri
   R1.qt <- res.proj[["R1.jqt"]][j, , select.t]
   R2.qt <- res.proj[["R2.jqt"]][j, , select.t]
   R3.qt <- res.proj[["R3.jqt"]][j, , select.t]
-  # delta.l <- res.proj[["delta.jl"]][j, ]
   s2.l.prob <- res.proj[["S2.l.select.prob.j"]][j]*100
   s3.l.prob <- res.proj[["S3.l.select.prob.j"]][j]*100
   plot.range <- range(R1.qt, R2.qt, R3.qt, exp(logr.i[select]), na.rm = TRUE)
@@ -53,25 +82,10 @@ for (country in plot.country) { #c in c.asia: now plot a subset of Asian countri
     cex.legend = 2.5, legendCI.posi = "bottomleft")
   abline(h = res.proj$a.jqt[j, 2, 1], lwd = 3, col = "limegreen")
   legend("topleft", "national baseline", lwd = 5, col = "limegreen", cex = 2.5)
-  # ##############
-  # ## plot TFR ##
-  # ## Allow a second plot on the same graph
-  # par(new = TRUE)
-  # ## Plot the second plot and put axis scale on right
-  # tfr <- as.numeric(tfr.ct[name.c[c], paste(plot.year-0.5)])
-  # 
-  # plot(x = plot.year, y = tfr, pch = 15,  xlab = "", ylab = "", ylim = range(tfr, 2.1, na.rm = TRUE),
-  #      axes = FALSE, type = "b", col = col.tfr, cex = 1.7)
-  # ## a little farther out (line=4) to make room for labels
-  # mtext("Total Fertility Rate", side = 4, col = "navyblue", line = 9, cex = text.cex, las = 3) 
-  # axis(4, col = col.tfr, col.axis = col.tfr, las = 1)
-  
-  # identify the starting and ending year of adjustment period
   start.yr <- years.t[floor(adj.info[paste0("T0.j[", j, "]"), "X50.percentile"])]
   end.yr   <- years.t[floor(adj.info[paste0("T3.j[", j, "]"), "X50.percentile"])]
   abline(v = c(start.yr, end.yr), col = col.tfr)
-  # start.tfr <- tfr[plot.year == start.yr]
-  # end.tfr <- tfr[plot.year == end.yr]
+
   text(x = start.yr, y = plot.range[2], pos = 4, col = col.tfr, cex = text.cex,
        labels = paste0(floor(start.yr)))#, "\n(TFR=", round(start.tfr, 1), ")"))
   text(x = end.yr, y = plot.range[2], pos = 2, col = col.tfr, cex = text.cex,
@@ -85,7 +99,7 @@ for (country in plot.country) { #c in c.asia: now plot a subset of Asian countri
     x = year.i, select.x = select, cutoff = NULL,
     cex.dataseries = 2, lwd.dataseries = 0.7,
     cex.legend = 2.5, alpha.polygon = 0, max.legend = 60)
-}#end of c loop
+} # end of c loop
 dev.off()
 
 
@@ -125,26 +139,11 @@ for (scna in 1:3) {
       Source = surveyplot.i, baseSeries = "VR", x.lim = range(round(plot.year)),
       x = year.i, select.x = select,
       SElim = plot.range, datalim = plot.range, main = "",
-      # main = paste0(name.c[c],
-      #               "\n(Prob. inflation=", round(res.proj$inflation.prob.j[j]*100, 1), "%)"),
       ylab = "Sex Ratio at Birth", xlab = "Year", cutoff = exp(logNmu),  cex.dataseries = 1.7,
       lwd.CI1 = 15, lwd.CI2 = 8, lwd.CI3 = 4, lwd.dataseries = 1,
       colCI = c("red", "limegreen"), alpha.dataseries = 0.8,
       cex.legend = text.cex-1, legendCI.posi = "bottomright", legendSurvey.posi = "bottomleft")
     
-    # ##############
-    # ## plot TFR ##
-    # par(new = TRUE)
-    # ## Plot the second plot and put axis scale on right
-    # tfr <- as.numeric(tfr.ct[name.c[c], paste(plot.year-0.5)])
-    # 
-    # plot(x = plot.year, y = tfr, pch = 15,  xlab = "", ylab = "", ylim = range(tfr, 2.1, na.rm = TRUE),
-    #      axes = FALSE, type = "b", col = col.tfr, cex = 1.7)
-    # ## a little farther out (line=4) to make room for labels
-    # mtext("Total Fertility Rate", side = 4, col = "navyblue", line = 9, cex = text.cex, las = 3) 
-    # axis(4, col = col.tfr, col.axis = col.tfr, las = 1)
-    
-    # identify the starting and ending year of adjustment period
     start.yr <- years.t[floor(adj.info[paste0("T0.j[", j, "]"), "X50.percentile"])]
     end.yr   <- years.t[floor(adj.info[paste0("T3.j[", j, "]"), "X50.percentile"])]
     abline(v = c(start.yr, end.yr), col = col.tfr)
@@ -163,10 +162,10 @@ for (scna in 1:3) {
       x = year.i, select.x = select, cutoff = NULL,
       cex.dataseries = 2, lwd.dataseries = 0.7,
       cex.legend = 2.8, alpha.polygon = 0, max.legend = 60)
-  }#end of c loop
+  } # end of c loop
   dev.off()
   
-}#end of scna loop
+} # end of scna loop
 
 
 ## the end ##
