@@ -1,4 +1,27 @@
-
+ ###############################################################################
+# Estimation and probabilistic projection of levels and trends 
+# in the sex ratio at birth in seven provinces of Nepal
+# from 1980 to 2050: a Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 8 Aug 2025
+# 
+# source_adj_dataSetup.R
+# 
+# This script extra data for adjustment factor.
+#
+# used for which run: Main.run
+#
+# this script is called by any other scripts: main.R and main_output.R
+# 
+# this script calls other scripts: null
+#
+# functions called: null
+# 
+# input data: null
+#
+# output data: null
+#############################################################################
 
 ## extra data for adjustment factor ##
 
@@ -34,8 +57,8 @@ t.a <- country.year.df[, "t.i"]
 for (i in 1:I) {
   if (is.na(indAdj.i[i])) {
     indAdj.i[i] <- which(c.a == c.i[i] & t.a == t.i[i])
-  }#end of if(is.na(indAdj.i[i]))
-}#end of i loop
+  } # end of if(is.na(indAdj.i[i]))
+} # end of i loop
 
 sum(is.na(indAdj.i)) #0
 
@@ -45,20 +68,20 @@ c.adj <- NULL
 for (c in 1:C) {
   if (is.element(name.c[c], adj.name.list)) {
     c.adj <- c(c.adj, c)
-  }#end of if
-}#end of c loop
+  } # end of if
+} # end of c loop
 # double check...
 identical(sort(adj.name.list), sort(name.c[c.adj]))
 
 j.a <- rep(NA, A)
 for (a in 1:A) {
   j.a[a] <- ifelse(c.a[a] == 0, 0, which(c.adj == c.a[a]))
-}#end of a loop
+} # end of a loop
 
 j.i <- rep(NA, I)
 for (i in 1:I) {
   j.i[i] <- which(c.adj == c.i[i])
-}#end of a loop
+} # end of a loop
 
 
 ## get indices for non-missing alpha.ct's to avoid sampling for all alpha.ct's
@@ -74,24 +97,21 @@ for (j in 1:C.adj) {
   if (length(gett) == 0) {
     gett <- c(which(years.t == adj.year),
               which(years.t == adj.year) + 1)
-  }#end of if
+  } # end of if
   if (length(gett) == 1 & max(gett) < Tend) {
     gett <- c(gett, gett + 1)
-  }#end of if
+  } # end of if
   if (length(gett) == 1 & max(gett) == Tend) {
     gett <- c(gett - 1, gett)
-  }#end of if
+  } # end of if
   
   nt.j[j] <- length(gett)
   gett.jk[j, 1:nt.j[j]] <- gett
   
-}#end of c loop
+} # end of c loop
 
 gett.jk <- gett.jk[, 1:max(nt.j)]
 
 ## the end ##
 
-
-
-## the end ##
 
