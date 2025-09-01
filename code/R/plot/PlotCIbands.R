@@ -1,5 +1,25 @@
 
-
+###############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 29 Aug 2025
+# 
+# PlotCIbands.R
+# 
+# This script contains function which plots confidence interval bands 
+# and median estimate lines over time from posterior summaries.
+#
+# Functions are: function1(.., function2(3), ..); means function2 is called
+# three times inside function1.
+#
+# PlotCIbands(..)
+#
+#
+###############################################################################
+#------------------------------------------------------------------------------
 PlotCIbands <- function(
   if.CI = TRUE, # if plot CI band
   if.line = TRUE, # if plot median or best estimate of CI
@@ -45,14 +65,14 @@ PlotCIbands <- function(
                              alpha.f = ifelse(length(x.plot) == 2,
                                               alpha.line, alpha.CI / 10)),
         col = adjustcolor(col = col, alpha.f = alpha.CI))
-      }#end of if
+      } # end of if
       
       if (is.vector(CIs.qt)) {
         segments(x0 = year.t, y0 = CI.low.t, y1 = CI.up.t,
                  col = col, lwd = 1.5)
-      }#end of if
+      } # end of if
       
-    }#end of if.CI
+    } # end of if.CI
     
     if (if.line & is.matrix(CIs.qt)) {
       noNA <- !is.na(year.t) #connect all non-NA data
@@ -60,12 +80,13 @@ PlotCIbands <- function(
         estimate.t <- CIs.qt[2, noNA]
       } else {
         estimate.t <- CIs.qt[2, order.year[noNA]]
-      }#end of ifelse(if.CI)
+      } # end of ifelse(if.CI)
       
       lines(estimate.t ~ year.t[noNA],
             lwd = lwd.CI, col = adjustcolor(col = col, alpha.f = alpha.line))
-    }#end of if.line
+    } # end of if.line
     
-  }#end of ifelse (!if.CI & !if.line)
+  } # end of ifelse (!if.CI & !if.line)
   
-}#end of PlotCIbands function
+} # end of PlotCIbands function
+
