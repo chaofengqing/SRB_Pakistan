@@ -1,10 +1,4 @@
 
-# year.i          <- data.all[, "Reference.Date"    ]
-# surveyplot.i <- paste0(typename.i, " (", surveyyear.i, ")")
-# surveyplot.i <- gsub("Standard DHS", "DHS", surveyplot.i)
-# surveyplot.i[typename.i == "SRS"] <- "SRS"
-# VRseries.name <- "SRS"
-
 pdf(paste0(fig.dir, "CIs_SRB_Nepal_province_", runname, "_bmj.pdf"),
     height = 50, width = 25)
 text.cex <- 4.5
