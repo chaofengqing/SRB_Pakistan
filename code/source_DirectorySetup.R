@@ -1,7 +1,36 @@
-
-
-#######################################
-## setup directory for data cleaning ##
+##############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 29 Aug 2025
+#
+# source_DirectorySetup.R
+#
+# This script creates and assign all directories used in this project.
+#
+# used for which run: Main.run
+#
+# this script is called by any other scripts: main.R
+#
+# this script calls other scripts: null
+# functions called:                null
+# input data:                      null
+# output data:                     null
+#
+# Folders that you need to create by yourself before you start this project:
+# project folder: SRB_Pakistan/
+# input data folder: SRB_Pakistan/data/input/
+# output data folder: SRB_Pakistan/data/output
+#
+#
+# Folders that will be created after running this script for a certain run:
+# 1. SRB_Pakistan/data/interim/
+# 2. SRB_Pakistan/data/output/; and its subfolders
+# 3. SRB_Pakistan/fig/; and its subfolders
+#
+#######################################setup directory for data cleaning ##
 
 # aux.data.dir <- "data/input/Auxdata/"
 
@@ -59,7 +88,7 @@ if (CleanData) {
   dir.create(Census.output.dir, showWarnings = FALSE)
   dir.create("fig", showWarnings = FALSE)
   dir.create(fig.dir, showWarnings = FALSE)
-}#end of if(CleanData)
+} # end of if(CleanData)
 
 #############################################
 ## setup directory for modeling and output ##
@@ -88,9 +117,9 @@ if (!CleanData) {
     dir.create(fig.dir, showWarnings = FALSE)
     dir.create(convergeplot.dir, showWarnings = FALSE)
     
-  }#end of if (First.run)
+  } # end of if (First.run)
   
-}#end of if(!CleanData)
+} # end of if(!CleanData)
 
 ## the end ##
 
