@@ -42,10 +42,6 @@ ReadJagsOutput <- function(
                           "step", start.step, ".Rdata")
   load(paste0(jagsStep.dir, jags.filename))
   n.iter.perstep <- dim(model.update$BUGSoutput$sims.array)[1]
-  #   ntotaltemp <- n.iter.perstep*(n.steps-start.step+1)*n.chains
-  #   print(paste("A total of ", n.iter.perstep*(n.steps-start.step+1)*n.chains, "samples were obtained."))
-  #   ntotal <- min(maxiter, ntotaltemp)
-  #   print(paste("A total of ", ntotal, "samples are saved."))
   nsavepersteptemp <- min(n.iter.perstep,
                           ceiling(maxiter * 1 / (n.steps - start.step + 1) * 1 / n.chains))
   N.THIN         <- floor(n.iter.perstep / nsavepersteptemp)
@@ -73,15 +69,12 @@ ReadJagsOutput <- function(
         load(paste0(jagsStep.dir, jags.filename))
         mcmc.array[((step - start.step) * n.iter.perstep + 1):((step - start.step + 1) * n.iter.perstep),
                    chain, ] <- model.update$BUGSoutput$sims.array[iter.pick, 1, ]
-      }#end of step loop
-    }#end of if (n.steps > 1)
-  }#end of chain loop
+      } # end of step loop
+    } # end of if (n.steps > 1)
+  } # end of chain loop
   
-  #   n.sample.max = 10000000
-  #   if (n.sim > n.sample.max){
-  #     mcmc.array <- mcmc.array[seq(1, n.sample.max, length.out = n.sample.max), , ]  
-  #   }
+ }
   
   return(mcmc.array)
   
-}#end of ReadJagsOutput function
+} # end of ReadJagsOutput function
