@@ -1,4 +1,21 @@
-
+###############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 29 Aug 2025
+# F_SRBFunctions.R
+# 
+# This script contains all functions related to SRB computations.
+# Functions are: function1(.., function2(3), ..); means function2 is called
+# three times inside function1.
+# GetSRB(..)
+# GetSRBfromAllandMale(..,GetSRB(1),..)
+# GetSexSpecificBirthfromAllandSRB(..,GetSRBfromAllandMale(1),..)
+# SimSRBforCI (..,GetSRBfromAllandMale(1),..)
+# 
+###############################################################################
 
 ## functions related to SRB ##
 #------------------------------------------------------------------------------
@@ -98,5 +115,6 @@ SimSRBforPI <- function (
 }
 #SimSRBforPI(b.male = , b.female = , prob.male.exp = prob.male0, n.sim = 1000)
 #------------------------------------------------------------------------------
+
 
 
