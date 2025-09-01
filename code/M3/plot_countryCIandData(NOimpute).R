@@ -18,7 +18,7 @@
 #
 # functions called: function(2) means the function is called twice in this
 # script. Those functions called in the scripts listed above are not listed.
-# PlotCIbandwithDataseries(4)
+# PlotCIbandwithDataseries(6)
 # 
 # input data: null
 #
