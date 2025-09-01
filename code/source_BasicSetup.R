@@ -1,4 +1,30 @@
-
+##############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 29 Aug 2025
+# 
+# source_BasicSetup.R
+# 
+# This script sets up the basic stuff for all the rest script in code/ folder.
+# 1. assign constants;
+# 2. install packages and call libraries;
+# 3. prepare for JAGS model.
+#
+# used for which run: Main.run
+#
+# this script is called by any other scripts: main.R
+#
+# functions called: null
+# 
+# input data: aux.data.dir which contains the information for the surveys and countries.
+#             database_for_modeling_2021-06-01.csv is the cleaned data.
+#
+# output data: null
+#
+###############################################################################
 ## basic setup ##
 aux.data.dir <- "data/input/Auxdata/"
 
@@ -10,9 +36,6 @@ aux.data.dir <- "data/input/Auxdata/"
 # install.packages("Hmisc")
 # install.packages("readstata13")
 
-if (CleanData) {
-  library(foreign) # read in SPSS data (for DHS)
-}#end of if(CleanData)
 
 ## call function scritps ##
 funcode.dirs <- list.dirs("code/R", full.names = TRUE, recursive = FALSE)
@@ -24,36 +47,12 @@ for (code.dir in funcode.dirs) {
     script.name <- paste0(code.dir, "/", file)
     print(paste("call code:", script.name))
     source(script.name)
-  }#end of file loop
+  } # end of file loop
   
-}#end of code.dir loop
-
+} # end of code.dir loop
 
 if.read.xlsx <- FALSE #FALSE # FALSE: if cannot load library(xlsx)
 if.read.csv  <- !if.read.xlsx
-
-if (CleanData) {
-  ## import survey information ##
-  ## read in DHS country code description file to identify country folder ##
-  if (if.read.xlsx) {
-    # library(xlsx) # read in xlsx file
-    # data.DHSCountryInfo <- read.xlsx(paste0(aux.data.dir, "SurveyInfo.xlsx"),
-    #                                  sheetName = "Country Code", stringsAsFactors = FALSE)
-    # 
-    # data.DHSinfo <- read.xlsx(paste0(aux.data.dir, "SurveyInfo.xlsx"),
-    #                           sheetName = "DHS", stringsAsFactors = FALSE)
-  }#end of if(if.read.xlsx)
-
-  if (if.read.csv) {
-    data.DHSCountryInfo <- read.csv(paste0(aux.data.dir, "SurveyInfo_CountryInfo.csv"),
-                                    header = TRUE, stringsAsFactors = FALSE, strip.white = TRUE)
-
-    data.DHSinfo <- read.csv(paste0(aux.data.dir, "SurveyInfo_DHS.csv"),
-                             header = TRUE, stringsAsFactors = FALSE, strip.white = TRUE)
-    data.MICSinfo <- read.csv(paste0(aux.data.dir, "SurveyInfo_MICS.csv"),
-                             header = TRUE, stringsAsFactors = FALSE, strip.white = TRUE)
-  }#end of if(if.read.csv)
-}#end of if(CleanData)
 
 
 ## info to save for SRB related data ##
