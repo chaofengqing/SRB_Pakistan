@@ -6,7 +6,8 @@
 #
 # Code constructed by: Fengqing CHAO
 # Code last revised by: Qiqi Qiang on 29 Aug 2025
-# 
+# plot_CMFB_projection_simulation.R
+#
 # This script uses Bayesian simulation results to generate trend plots and heatmaps
 # of missing female births (CMFB, AMFB, MISFB) for selected provinces
 # of Pakistan from 2021 to 2050, and outputs them as PDF files.
