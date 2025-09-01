@@ -1,4 +1,21 @@
-
+###############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 29 Aug 2025
+# 
+# ExternalFullPakistanProvinceName.R
+# 
+# This script contains a utility function standardizes Pakistani province names 
+# by converting abbreviations or old spellings into their full official forms.
+# 
+# Functions are: function1(.., function2(3), ..); means function2 is called
+# three times inside function1.
+# ExternalFullPakistanProvinceName(..)
+# 
+#################################################
 
 ExternalFullPakistanProvinceName <- function(name.in) {
   
@@ -12,4 +29,4 @@ ExternalFullPakistanProvinceName <- function(name.in) {
   
   name.out <- name.in
   return(name.out)
-}#end of ExternalFullPakistanProvinceName function
+} # end of ExternalFullPakistanProvinceName function
