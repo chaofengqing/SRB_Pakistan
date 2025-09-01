@@ -1,15 +1,38 @@
-
+###############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 29 Aug 2025
+#
+# plot_newcountry_ADJ_simulation.R
+# 
+# This script plot simulation of SRB inflation for a new country
+#
+# used for which run: Main.run
+#
+# this script is called by any other scripts: main_output.R;
+#
+# this script calls other scripts: null
+#
+# functions called: function(2) means the function is called twice in this
+# script. Those functions called in the scripts listed above are not listed.
+# SamplesToUI(2)
+# PlotCIbands(1)
+#
+# input data: null
+#
+# output plots in folder fig/: explore_newPAKprovince_ADJ_simulation.pdf
+#
+###############################################################################
 
 ## plot simulation of SRB inflation for a new country ##
 L <- 25000
-# load(file = paste0(output.dir, "cis_", runname, "_simulation_adj.rda")) #res.sim.adj
-
-
 library(truncdist)
 N.l <- rep(exp(logNmu), L)
 
 t1 <- 1
-# s <- which(c(1:Tend) == t1)
 
 sim.adj.tl <- matrix(0, nr = Tend+10, nc = L)
 T0.l <- a.l <- D1.l <- D2.l <- D3.l <- rep(NA, L)
@@ -19,11 +42,11 @@ T0.l <- rep(t1, L)
 ## shape parameters...
 for (l in 1:L) {
   set.seed(l*19)
-  a.l[l] <- rtrunc(n = 1, spec = "norm", a = 0, mean = pri.a.c.mu, sd = pri.sigma.a.c)
+  a.l[l]  <- rtrunc(n = 1, spec = "norm", a = 0, mean = pri.a.c.mu, sd = pri.sigma.a.c)
   D1.l[l] <- rtrunc(n = 1, spec = "norm", a = 0, mean = pri.D1.c.mu, sd = pri.sigma.D1)
   D2.l[l] <- rtrunc(n = 1, spec = "norm", a = 0, mean = pri.D2.c.mu, sd = pri.sigma.D2)
   D3.l[l] <- rtrunc(n = 1, spec = "norm", a = 0, mean = pri.D3.c.mu, sd = pri.sigma.D3)
-}#end of l loop
+} # end of l loop
 
 T1.l <- T0.l + D1.l
 T2.l <- T1.l + D2.l
@@ -45,11 +68,11 @@ for (t in 1:(Tend+10)) {
       sim.adj.tl[t, l] <- a.l[l]
     } else {
       sim.adj.tl[t, l] <- a.l[l] - (a.l[l] / D3.l[l]) * (t - T2.l[l])
-    }#end of ifelse
-  }#end of l loop
+    } # end of ifelse
+  } # end of l loop
   
   sim.adj.tl[t, ] <- sim.adj.tl[t, ] * delta.l
-}#end of t loop
+} # end of t loop
 
 
 sim.adj.qt <- SamplesToUI(t(sim.adj.tl)) #res.sim.adj$sim.adj.qt
