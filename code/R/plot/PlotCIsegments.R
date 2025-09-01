@@ -1,3 +1,23 @@
+##############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 29 Aug 2025
+# 
+# PlotCIsegments.R
+# 
+# This script contains function which plots horizontal confidence interval plots 
+# for multiple countries or groups.
+#
+# Functions are: function1(.., function2(3), ..); means function2 is called
+# three times inside function1.
+#
+# PlotCIsegments(..)
+#
+###############################################################################
+#------------------------------------------------------------------------------
 PlotCIsegments <- function (
   if.plotall = TRUE, # if plot all of data.cqt[select.c, , select.t]
   if.oneSource = TRUE, # if only country data or a mix,
