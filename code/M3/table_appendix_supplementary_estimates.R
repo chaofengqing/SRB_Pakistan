@@ -1,4 +1,28 @@
 
+##############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 29 Aug 2025
+# table_appendix_supplementary_estimates.R
+# 
+# This script extracts posterior samples of the adjustment parameters.
+#
+# used for which run: Main.run
+#
+# this script is called by any other scripts: main_output.R
+#
+# this script calls other scripts: null
+#
+# functions called: null
+# 
+# input data: null
+#
+# output data: null
+#
+###############################################################################
 
 ## print out results in latex table ##
 
