@@ -1,3 +1,36 @@
+###############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 29 Aug 2025
+# plot_SRB_map_region.R
+# 
+# This script generates maps to visualize the estimated and projected SRB 
+# for each province of Pakistan at five-year intervals from 1980 to 2050, 
+# and separately for selected years (2000, 2015 as estimates; 
+# 2020, 2030, 2040 as projections).
+#
+# used for which run: main.run
+#
+# this script is called by any other scripts: main_output.R;
+#
+# this script calls other scripts: null
+#
+# functions called: function(2) means the function is called twice in this
+# script. Those functions called in the scripts listed above are not listed.
+# ExternalFullPakistanProvinceName(3)
+#
+# input data: 
+# data/gadm36_PAK_shp/gadm36_PAK_1.*" (Pakistan province shapefile)
+#
+# output plots in folder fig/:
+# 1. "map_Pakistan_region_SRB.pdf": SRB maps at 5-year intervals 1980–2050
+# 2. "map_Pakistan_region_SRB_esti.pdf": SRB estimate maps for 2000 and 2015
+# 3. "map_Pakistan_region_SRB_proj.pdf": SRB projection maps for 2020, 2030, 2040
+#
+###############################################################################
 
 
 text.cex <- 0.9
@@ -58,7 +91,7 @@ for (yr in seq(1980, 2050, 5)) {
     for (j in 1:C.adj) {
       add.code <- map1.robin$NAME_1[j]
       code.plot <- c(code.plot, add.code)
-    }#end of j loop
+    } # end of j loop
     
     cutoff.labs <- as.character(cut(cutoff, cutoff, include.lowest = TRUE))[-1]
     cutoff.labs <-
@@ -88,8 +121,8 @@ for (yr in seq(1980, 2050, 5)) {
     addnortharrow(scale = 0.9)
     
     legend("topleft", map1.name, pch = paste(1:length(map1.name)), lty = 0)
-  }#end of if(end > start)
-}#end of yr loop
+  } # end of if(end > start)
+} # end of yr loop
 dev.off()
 
 
@@ -98,8 +131,8 @@ dev.off()
 ## only estimates ##
 plot.yr <- c(2000, 2015)
 print(round(quantile(res.proj$R2.jqt[, 2, paste(plot.yr)], seq(0, 1, length.out = 9), na.rm = TRUE), 4))
-start <- 1.045#round(floor(min(res.proj$R2.jqt[, 2, paste(yr)], na.rm = TRUE)*1000)/1000, 3)
-end <- 1.08#round(ceiling(max(res.proj$R2.jqt[, 2, paste(yr)], na.rm = TRUE)*1000)/1000, 3)
+start <- 1.045 #round(floor(min(res.proj$R2.jqt[, 2, paste(yr)], na.rm = TRUE)*1000)/1000, 3)
+end <- 1.08 #round(ceiling(max(res.proj$R2.jqt[, 2, paste(yr)], na.rm = TRUE)*1000)/1000, 3)
 cutoff <- c(1.045, 1.050, 1.055, 1.060, 1.065, 1.12)#seq(start, end, length.out = out.number)
 out.number <- length(cutoff)
 myPalette <- brewer.pal(out.number-1, "Reds")
@@ -131,7 +164,6 @@ for (yr in plot.yr) {
   
   # Find the center of each region and label lat and lon of centers
   centroids <- gCentroid(map1.robin, byid=TRUE)
-  # select.names <- is.element(map1.robin$NAME_1, name.show.result)
   centroidLons <- coordinates(centroids)[, 1]
   centroidLats <- coordinates(centroids)[, 2]
   names(centroidLons) <- names(centroidLats) <- map1.name
@@ -140,7 +172,7 @@ for (yr in plot.yr) {
   for (j in 1:C.adj) {
     add.code <- which(map1.robin$NAME_1[j] == map1.name)
     code.plot <- c(code.plot, add.code)
-  }#end of j loop
+  } # end of j loop
   
   
   # colouring the districts with range of colours
@@ -154,20 +186,19 @@ for (yr in plot.yr) {
   ## plot the map ##
   plot(map1.robin,border=1,bg=background.color, col = myPalette[map1.robin$col_no],
        lwd = boundary.lwd, main = paste0("Sex Ratio at Birth, Pakistan (", yr, ")"))#, ylim = c(10^6*2.967999, 10^6*2.968)
-  # title(paste0("Sex Ratio at Birth Projection (", yr, ")"), cex.main = 1, outer = TRUE)
   text(centroidLons, centroidLats, labels = code.plot, cex = 1)
   if (yr == 2000) {
     legend(legend = c(cutoff.labs, "Results not shown"), bg = "white", box.col = "white",
            fill = c(myPalette, "white"), "bottomleft", cex = 1)
     legend("topleft", ExternalFullPakistanProvinceName(map1.name),
            pch = paste(1:length(map1.name)), lty = 0, bty = "n")
-  }#end of if(yr == 2000)
+  } # end of if(yr == 2000)
   if (yr == 2015) {
     library(prettymapr)
     addscalebar(label.cex = 1, pos = "bottomright")
     addnortharrow(scale = 0.7)
-  }#end of if(yr == 2015)
-}#end of yr loop
+  } # end of if(yr == 2015)
+} # end of yr loop
 dev.off()
 
 
@@ -176,8 +207,8 @@ dev.off()
 ## only projections ##
 plot.yr <- c(2020, 2030, 2040)
 print(round(quantile(res.proj$R2.jqt[, 2, paste(plot.yr)], seq(0, 1, length.out = 9), na.rm = TRUE), 4))
-start <- 1.05#round(floor(min(res.proj$R2.jqt[, 2, paste(yr)], na.rm = TRUE)*1000)/1000, 3)
-end <- 1.08#round(ceiling(max(res.proj$R2.jqt[, 2, paste(yr)], na.rm = TRUE)*1000)/1000, 3)
+start <- 1.05 # round(floor(min(res.proj$R2.jqt[, 2, paste(yr)], na.rm = TRUE)*1000)/1000, 3)
+end <- 1.08 # round(ceiling(max(res.proj$R2.jqt[, 2, paste(yr)], na.rm = TRUE)*1000)/1000, 3)
 cutoff <- c(1.050, 1.055, 1.060, 1.065, 1.070, 1.075, 1.080)#seq(start, end, length.out = out.number)
 out.number <- length(cutoff)
 myPalette <- brewer.pal(out.number-1, "Reds")
