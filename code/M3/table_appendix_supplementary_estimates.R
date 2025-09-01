@@ -8,7 +8,7 @@
 # Code last revised by: Qiqi Qiang on 29 Aug 2025
 # table_appendix_supplementary_estimates.R
 # 
-# This script extracts posterior samples of the adjustment parameters.
+# This script print out results in latex table.
 #
 # used for which run: Main.run
 #
@@ -18,7 +18,10 @@
 #
 # functions called: null
 # 
-# input data: null
+# input data:
+# 1. data/output/country.list.past.inflation.rda
+# 2. data/output/cis_full_M3.rda
+# 3. data/output/cis_M3_CumsumMissing.rda
 #
 # output data: null
 #
@@ -37,7 +40,7 @@ t.start <- t.end <- rep(NA, length(start.year))
 for (j in 1:length(start.year)) {
   t.start[j] <- which(floor(years.t) == start.year[j])
   t.end[j] <- which(floor(years.t) == end.year[j])
-}#end of j loop
+} # end of j loop
 
 K <- length(start.year)
 
@@ -78,19 +81,14 @@ for (c in which(is.element(name.c, country.list.past.inflation))) {
       B.q[2] <- round((sum(res.full[[paste0(par, ".cqt")]][c, 2, t.start[k]:t.end[k]], na.rm = TRUE) /
         (t.end[k] - t.start[k] + 1)) / 1000, 1)
       
-      # B.q <- round(B.q)
-      # for (q in 1:Per) {
-      #   B.q[q] <- prettyNum(B.q[q], width = 3, big.mark = ",")
-      # }#end of q loop
-      
       parname <- ifelse(par == "Bf", "Estimated female births", "Expected female births")
       
       table.df[paste(parname, 1), paste0(start.year[k], "-", end.year[k])] <-
         paste0(B.q[2])
       table.df[paste(parname, 2), paste0(start.year[k], "-", end.year[k])] <-
         paste0("[", B.q[1], "; ", B.q[3], "]")
-    }#end of k loop
-  }#end of par loop
+    } # end of k loop
+  } # end of par loop
   
   
   ## AMFB & CMFB
@@ -104,20 +102,16 @@ for (c in which(is.element(name.c, country.list.past.inflation))) {
       B.q[2] <- round(((median(res.missing.CI[["cumsum.missingBf.clt"]][c, , t.end[k]]) -
                    median(res.missing.CI[["cumsum.missingBf.clt"]][c, , t.start[k]-1])) /
         ifelse(par == "CMFB", 1, t.end[k] - t.start[k] + 1)) / 1000, 1)
-      
-      # B.q <- round(B.q)
-      # for (q in 1:Per) {
-      #   B.q[q] <- prettyNum(B.q[q], width = 3, big.mark = ",")
-      # }#end of q loop
+    
       
       table.df[paste(par, 1), paste0(start.year[k], "-", end.year[k])] <-
         paste0(B.q[2])
       table.df[paste(par, 2), paste0(start.year[k], "-", end.year[k])] <-
         paste0("[", B.q[1], "; ", B.q[3], "]")
-    }#end of k loop
-  }#end of par loop
+    } # end of k loop
+  } # end of par loop
   
-}#end of c loop
+} # end of c loop
 
 
 table.df.save <- table.df
