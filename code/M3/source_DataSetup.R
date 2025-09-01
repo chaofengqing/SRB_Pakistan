@@ -1,4 +1,47 @@
-
+###############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 29 Aug 2025
+# 
+# source_DataSetup.R
+# 
+# This script setup data and indices for modelling and output.
+#
+# used for which run: Main.run
+#
+# this script is called by any other scripts: main.R
+#
+# this script calls other scripts: null
+#
+# functions called: function(2) means the function is called twice in this
+# script. Functions called in the scripts listed above are not listed.
+# PlotCIbandwithDataseries(1) - data series plots for checking purpose.
+# 
+# input data: null
+#
+# output data: null
+#
+# output plot in folder fig/M1/: if Main.run & First.run
+# 1. dataSeries_ForModel(noimputeSE)_date.pdf
+#
+# Data setup summary in several parts:
+# part 2b: remove entries in SR data base if there is no IGME estimate for
+# its corresponding mortality
+#
+# part 4a: get source types and make sure VR is the last type
+#
+# part 4b: get imputed standard error on log-scale
+#
+# part 6: get indices about country, year, region
+#
+# part 7: get indices for non-missing P.ct's to avoid sampling for all P.ct's
+# instead, only sample the t.i's that have an observation
+#
+###############################################################################
+##########
 ##########
 ## part 2b: remove entries in SR data base if there is no IGME estimate for
 # its corresponding mortality
@@ -40,18 +83,14 @@ typename.i[typename.i == "SRS Direct"] <- "VR"
 # NOTE for later: for 1-country run, you'll have subsets of these 
 # need to keep track of what parameters to use for sigma of source type
 source.i <- as.numeric(as.factor(typename.i))
-# # reassign to match to global run
-# source.i[typename.i == "Census Direct"] <- 1
-# source.i[typename.i == "DHS Direct"] <- 2
 S        <- max(source.i); S
-
 
 ###----------------------------------------------------------------
 # VR needs to be last one
 # print warning here and at the end
 if (prod((source.i == S)[typename.i == "SRS"]) != 1) {
   print("Warning: VR is not sourcetype S! Reassignment is carried out...")
-}#end of if(prod((source.i == S)[typename.i == "VR"]) != 1)
+} # end of if(prod((source.i == S)[typename.i == "VR"]) != 1)
 
 
 # for Main.run, the following shows the full set info
@@ -72,20 +111,10 @@ table(typename.i, source.i)
  
 ###########
 ## part 4b: get imputed standard error on log-scale
-# logSEImpute <- median(logSEnoimpute.i[typename.i != "VR"], na.rm = TRUE)
 # #0.0882775 full dataset
-# min(logSEnoimpute.i[typename.i == "VR"], na.rm = TRUE) #0.01373496
-# summary(logSEnoimpute.i[typename.i == "VR"])
-# sum(typename.i != "VR") #849
-# 
 ## Use a minimum for SE at 1% or 2.5%
 SE.lower <- 5 / 100
 logSE.i[typename.i == "PSLM"] <- SE.lower
-# logSE.i <- ifelse(is.na(logSEnoimpute.i), logSEImpute, logSEnoimpute.i)
-# mean(logSE.i < log(1 + SE.lower)) #3.1%
-# mean(logSE.i < SE.lower) #3.1%
-# logSE.i[logSE.i < SE.lower] <- SE.lower
-
 ##############################################
 ## plot with data serise and non-imputed SE ##
 VRseries.name <- "SRS"
@@ -122,11 +151,11 @@ if (First.run) {
         main = name.c[c],
         alpha.dataseries = 1, alpha.polygon = 0.2, cex.dataseries = 2,
         ylab = "Sex Ratio at Birth", xlab = "Year", cutoff = SRB0)
-    }#end of ifelse(length(select) == 0)
-  }#end of c loop
+    } # end of ifelse(length(select) == 0)
+  } # end of c loop
   dev.off()
   
-}#end of if(First.run)
+}  #end of if(First.run)
 
 
 ##########
@@ -141,7 +170,7 @@ for (i in 1:I) {
   # find country-year for each index
   c.i[i] <- which(name.c == name.i[i])
   t.i[i] <- which(years.t == floor(year.i[i]) + 0.5)
-}#end of i loop
+} # end of i loop
 
 
 ##########
@@ -167,7 +196,7 @@ for (c in 1:C) {
   nt.c[c] <- length(gett)
   gett.cz[c, 1:nt.c[c]] <- gett
   
-}#end of c loop
+} # end of c loop
 
 gett.cz <- gett.cz[, 1:max(nt.c)]
 
@@ -176,7 +205,7 @@ if (prod((source.i == S)[typename.i == "VR"]) != 1) {
   print("STOP: VR is not sourcetype S!")
 } else {
   print("Great! VR is indeed sourcetype S!")
-}#end of ifelse(prod((source.i == S)[typename.i == "VR"]) != 1)
+} # end of ifelse(prod((source.i == S)[typename.i == "VR"]) != 1)
 
 
 ## The END! ##
