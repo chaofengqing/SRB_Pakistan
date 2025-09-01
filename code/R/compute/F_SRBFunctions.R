@@ -55,7 +55,7 @@ GetSexSpecificBirthfromAllandSRB <- function (b.all, # total number of birth
   
   result <- list(b.male = b.male, b.female = b.female)
   return(result)
-}#end of GetSexSpecificBirthfromAllandSRB function
+} # end of GetSexSpecificBirthfromAllandSRB function
 #------------------------------------------------------------------------------
 SimSRBforCI <- function (b.male, # number of male birth
                          b.female, # number of female birth
@@ -109,12 +109,13 @@ SimSRBforPI <- function (
   srb.exp.n <- rep(NA, n.sim)
   for (n in 1:n.sim) {
     srb.exp.n[n] <- GetSRBfromAllandMale(b.male = male.exp.n[n], b.all = b.all)
-  }#end of n loop
+  } # end of n loop
   
   return(srb.exp.n)
 }
 #SimSRBforPI(b.male = , b.female = , prob.male.exp = prob.male0, n.sim = 1000)
 #------------------------------------------------------------------------------
+
 
 
 
