@@ -1,21 +1,38 @@
-
-
-############################################
-## plot the results for all the countries ##
-# read in cleaned database of SRB by Indian state
-# dataset <- read.csv(paste0(interim.dir, srb.filename),
-#                     header = TRUE, stringsAsFactors = FALSE, strip.white = TRUE)
-# data.all <- dataset[dataset$Inclusion, ]
+###############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 29 Aug 2025
+#
+# plot_countryCIandData(NOimpute).R
 # 
-# name.i          <- data.all[, "Domain.Name"       ]
-# # iso.i           <- data.all[, "Domain.Code"       ]
+# This script plots the results for all the countries.
+#
+# used for which run: Main.run
+#
+# this script is called by any other scripts: main_output.R;
+#
+# this script calls other scripts: null
+#
+# functions called: function(2) means the function is called twice in this
+# script. Those functions called in the scripts listed above are not listed.
+# PlotCIbandwithDataseries(4)
+# 
+# input data: null
+#
+# output plots in folder fig/:
+# 1. CIs_SRB_pakistan_region_M3_<date>.pdf:Shows estimated SRB
+# 2. modelFullPeriod_SRB_pakistanRegion_M3.pdf:Displays full SRB trajectories for all
+#                                              provinces from 1980 to 2050
+# 3. modelEsti_SRB_pakistanRegion_M3.pdf:Presents estimated SRB trends for Pakistan’s 
+#                                        provinces from 1980 to 2020.
+# 4. modelProj_SRB_pakistanRegion_M3.pdf：Visualizes projected SRB trends for Pakistan’s 
+#                                         provinces from 2020 to 2050.
+###############################################################################
+## plot the results for all the countries ##
 year.i          <- data.all[, "Reference.Date"    ]
-# method.i        <- data.all[, "Series.Type"       ]
-# typename.i      <- data.all[, "Series.Category"   ]
-# surveyyear.i    <- data.all[, "Series.Year"       ]
-# logSEnoimpute.i <- data.all[, "SE.logSRB.Modeling"] #before imputing for missing SEs
-# r.i             <- data.all[, "Observed.SRB"      ]
-# logr.i          <- log(r.i)
 surveyplot.i <- paste0(typename.i, " (", surveyyear.i, ")")
 surveyplot.i <- gsub("Standard DHS", "DHS", surveyplot.i)
 surveyplot.i[typename.i == "SRS"] <- "SRS"
@@ -51,7 +68,7 @@ for (country in name.c) {
     ylab = "Sex Ratio at Birth", xlab = "Year", cutoff = exp(logNmu),
     lwd.CI1 = 15, lwd.CI2 = 10, lwd.dataseries = 3, colCI = c("red", "darkgreen"),
     cex.legend = 2, legendCI.posi = "topright", legendSurvey.posi = "bottomright")
-}#end of c loop
+} # end of c loop
 dev.off()
 
 
@@ -80,15 +97,11 @@ PlotCIbandwithDataseries(
   alpha.point      = 1,
   alpha.polygon    = 0.5,
   year.t = yr.start:yr.end,
-  # CI1s = res.country$R.cqt["India", , paste(yr.start:yr.end)], colCI = 1,
-  # nameCI1 = "whole India", legendCI.posi = "topright",
   x = year.i, select.x = TRUE, cex.dataseries = 2,
   x.lim = range(year.i) + c(-1, 1), max.legend = 60,
   ylab = "Sex Ratio at Birth", xlab = "", cutoff = exp(logNmu),
   lwd.dataseries = 2, legendSurvey.posi = "topright", cex.legend = 2.5)
 abline(h = c(1.08, 1.10, 1.12, 1.14), col = "grey", lwd = 0.5)
-# abline(v = 2016, col = "grey", lwd = 1.5)
-# axis(1, at = 2016, labels = 2016, cex = 2.5)
 # zoom in on 1980-2016
 yr.start <- 1980
 yr.end <- 2020
@@ -97,7 +110,6 @@ r.i <- c(res.proj[["R2.jqt"]][name.c, 2, paste(yr.start:yr.end)])
 surveyplot.i <- rep(name.c, times = length(yr.start:yr.end))
 plot.lim <- range(r.i, na.rm = TRUE)
 PlotCIbandwithDataseries(
-  # if.SurveyLegend = TRUE, if.sepLegendPage = TRUE,
   dataseries = r.i, SElim = plot.lim, datalim = plot.lim,
   baseSeries = "VR", Source = surveyplot.i,
   main = paste0("zoom in ", yr.start, "-", yr.end),
