@@ -8,7 +8,7 @@
 # 
 # This script identifies countries with past SRB inflation 
 #
-# used for which run: main.run
+# used for which run: Main.run
 #
 # this script is called by any other scripts: main_output.R
 #
