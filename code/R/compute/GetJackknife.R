@@ -1,4 +1,18 @@
-
+###############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 29 Aug 2025
+# 
+# GetJackknife.R
+# 
+# This script contains all functions related to Jackknife estimate and SE.
+# Functions are: function1(.., function2(3), ..); means function2 is called
+# three times inside function1.
+# GetJackknife(..)
+###############################################################################
 
 GetJackknife <- function(
   data.i, # full sample
@@ -26,7 +40,7 @@ GetJackknife <- function(
                          weight.i[!select.i], na.rm = TRUE)
     partial.u[u] <- GetSRB(malebirth, femalebirth)
     
-  }#end of u loop    
+  } # end of u loop    
   
   # Jackknife estimate and SE
   # original scale
@@ -39,4 +53,4 @@ GetJackknife <- function(
   result <- list(est = est, se = se, estlog = estlog, selog = selog)
   return(result)
   
-}#end of GetJackknife() function
+} # end of GetJackknife() function
