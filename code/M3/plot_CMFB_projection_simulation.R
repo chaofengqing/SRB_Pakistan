@@ -1,4 +1,40 @@
 
+###############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 29 Aug 2025
+# 
+# This script uses Bayesian simulation results to generate trend plots and heatmaps
+# of missing female births (CMFB, AMFB, MISFB) for selected provinces
+# of Pakistan from 2021 to 2050, and outputs them as PDF files.
+#
+# used for which run: main.run
+#
+# this script is called by any other scripts: main_output.R;
+#
+# this script calls other scripts: null
+#
+# functions called: function(2) means the function is called twice in this
+# script. Those functions called in the scripts listed above are not listed.
+# PlotCIband(2)
+# 
+# input data: 
+# 1. data/output/simulatedMISFB_bystartyear_M3.rda
+# 2. data/output/simulatedCMFB_bystartyear_M3.rda
+# 3. data/output/simulatedAMFB_bystartyear_M3.rda
+# 4. data/interim/birth.ct.rda
+#
+# output plots in folder fig/:
+# 1. CMFB_projection_simulation.pdf
+# 2. AMFB_projection_simulation.pdf
+# 3. AMFB_projection_simulation_heatmap_Khyber Pakhtunkhwa.pdf
+# 4. AMFB_projection_simulation_heatmap_Punjab.pdf
+# 5. AMFB_projection_simulation_heatmap_Sindh.pdf
+# 6. AMFB_projection_simulation_heatmap_Islamabad (ICT).pdf
+###############################################################################
 
 load(file = paste0(output.dir,"simulatedMISFB_bystartyear_",runname,".rda")) #sim.misfb.cts
 load(file = paste0(output.dir,"simulatedCMFB_bystartyear_",runname,".rda")) #sim.cmfb.cqs
@@ -21,7 +57,7 @@ for (c in which(is.element(name.c, c("Khyber Pakhtunkhwa",
        main = name.c[c])
   PlotCIbands(CIs.qt = sim.cmfb.cqs[c, , ]/1000, year.t = 2021:2050)
   abline(h = 0)
-}#end of c loop
+} # end of c loop
 dev.off()
 
 pdf(paste0(fig.dir, "AMFB_projection_simulation.pdf"))
@@ -48,7 +84,7 @@ for (c in which(is.element(name.c, c("Khyber Pakhtunkhwa",
   mtext("Number of total birth (in thousand)", side = 4, col = "navyblue", line = -1, cex = 0.8, las = 3)
   axis(4, col = "navyblue", col.axis = "navyblue")
   
-}#end of c loop
+} # end of c loop
 dev.off()
 
 
@@ -68,5 +104,5 @@ for (c in which(is.element(name.c, c("Khyber Pakhtunkhwa",
             xlab = "Year", ylab = "Start year of SRB inflation process",
             main = paste(name.c[c], "AMFB (in 000)"))
   dev.off()
-}#end of c loop
+} # end of c loop
 
