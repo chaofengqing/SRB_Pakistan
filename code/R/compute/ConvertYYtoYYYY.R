@@ -1,3 +1,21 @@
+###############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 29 Aug 2025
+# 
+# ConvertYYtoYYYY.R
+# 
+# This script contains a utility function to convert two-digit years 
+# into four-digit years.
+# 
+# Functions are: function1(.., function2(3), ..); means function2 is called
+# three times inside function1.
+# ConvertYYtoYYYY(..)
+# 
+#################################################
 
 
 ConvertYYtoYYYY <- function(yy.date) {
@@ -12,4 +30,4 @@ ConvertYYtoYYYY <- function(yy.date) {
   }
   
   return(yyyy.date)
-}#end of ConvertYYtoYYYY() function
+} # end of ConvertYYtoYYYY() function
