@@ -1,3 +1,20 @@
+###############################################################################
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
+#
+# Code constructed by: Fengqing CHAO
+# Code last revised by: Qiqi Qiang on 29 Aug 2025
+# 
+# ConvertCMCtoYYYY.R
+# 
+# This script contains a utility function to convert Century Month Code to Year format
+# 
+# Functions are: function1(.., function2(3), ..); means function2 is called
+# three times inside function1.
+# ConvertCMCtoYYYY(..)
+# 
+#################################################
 
 
 ConvertCMCtoYYYY <- function(
@@ -20,14 +37,14 @@ ConvertCMCtoYYYY <- function(
       cmc.date <- cmc.date + 519
     } else {
       cmc.date <- cmc.date - 681
-    }#end of ifelse(as.character(survey.time) == "1996")
-  }#end of if(is.Nepali)
+    } # end of ifelse(as.character(survey.time) == "1996")
+  } # end of if(is.Nepali)
   
   # Ethiopia DHS data use Ethiopian calendar which is 92 months behind the
   # Gregorian calendar.
   if (is.Ethiopia) {
     cmc.date <- cmc.date + 92
-  }#end of if(is.Ethiopia)
+  } # end of if(is.Ethiopia)
   
   # convert Gregorian CMC date to Gregorian YYYY date
   if (is.Persian) {
@@ -36,8 +53,8 @@ ConvertCMCtoYYYY <- function(
     yyyy.date <- cmc.date + 621
   } else {
     yyyy.date <- floor((cmc.date - 1) / 12) + 1900
-  }#end of ifelse(is.Persian)
+  } # end of ifelse(is.Persian)
   
   
   return(yyyy.date)
-}#end of ConvertCMCtoYYYY() function
+} # end of ConvertCMCtoYYYY() function
