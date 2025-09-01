@@ -39,7 +39,7 @@ Rhat1 <- function(mat) {
   
   return(R)
   
-}#end of Rhat1 function
+} # end of Rhat1 function
 
 
 #------------------------------------------------------------------------------
@@ -55,5 +55,6 @@ Rhat <- function(arr) {
   
   return(apply(arr, 3, Rhat1))
   
-}#end of Rhat function
+} # end of Rhat function
+
 
