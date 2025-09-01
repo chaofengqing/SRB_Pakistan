@@ -1,10 +1,10 @@
 ###############################################################################
-# Estimation and probabilistic projection of levels and trends 
-# in the sex ratio at birth in seven provinces of Nepal
-# from 1980 to 2050: a Bayesian modeling approach
+# Levels and trends estimate of sex ratio at birth for seven provinces of Pakistan 
+# from 1980 to 2020 with scenario-based probabilistic projections 
+# of missing female birth to 2050: A Bayesian modeling approach
 #
 # Code constructed by: Fengqing CHAO
-# Code last revised by: Qiqi Qiang on 8 Aug 2025
+# Code last revised by: Qiqi Qiang on 29 Aug 2025
 # 
 # InternalStandardizeNepalDevRegName.R
 # 
